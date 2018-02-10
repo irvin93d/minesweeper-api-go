@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-var iterations = 100
+var iterations = 1000
 
 func TestGenerateMines(t *testing.T) {
 
@@ -29,28 +29,27 @@ func TestGenerateMines(t *testing.T) {
 			mines := randInt(1, rows*cols)
 			g := NewGame(rows, cols, mines)
 			count := 0
-			for _, p := range cartesian(g.rows, g.cols) {
+			for _, p := range cartesian(g.Rows, g.Cols) {
 				if g.minefield[p.r][p.c].mine {
 					count++
 				}
 			}
-			if g.mines != mines || count != mines {
+			if g.Mines != mines || count != mines {
 				t.Fail()
 			}
 		})
 	})
-
 	t.Run("Expect correct number of surrounding mines", func(t *testing.T) {
 		testTimes(t, iterations, func(t *testing.T) {
 			rows := randInt(MinSize, MaxSize)
 			cols := randInt(MinSize, MaxSize)
 			mines := randInt(1, rows*cols)
 			g := NewGame(rows, cols, mines)
-			for _, p := range cartesian(g.rows, g.cols) {
+			for _, p := range cartesian(g.Rows, g.Cols) {
 				minc := max(p.c-1, 0)
 				minr := max(p.r-1, 0)
-				maxc := min(p.c+2, g.cols)
-				maxr := min(p.r+2, g.rows)
+				maxc := min(p.c+2, g.Cols)
+				maxr := min(p.r+2, g.Rows)
 				count := 0
 				for r := minr; r < maxr; r++ {
 					for c := minc; c < maxc; c++ {
