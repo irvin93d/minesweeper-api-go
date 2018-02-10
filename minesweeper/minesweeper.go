@@ -7,18 +7,11 @@ import (
 var MinSize = 3
 var MaxSize = 100
 
-type status int16
-
-const (
-	open status = iota
-	closed
-	flagged
-)
-
 type cell struct {
 	mine        bool
 	surrounding int
-	status      status
+	flagged     bool
+	open        bool
 }
 
 // Game is an instance of a minesweeper game
@@ -27,6 +20,8 @@ type Game struct {
 	rows      int
 	cols      int
 	mines     int
+	won       bool
+	lost      bool
 }
 
 // NewGame generates a new minesweeper of type Game
@@ -47,16 +42,29 @@ func NewGame(rows, cols, mines int) *Game {
 	return g
 }
 
+func (g *Game) print() {
+	println("Heres a game")
+	for r := 0; r < g.rows; r++ {
+		for c := 0; c < g.cols; c++ {
+			if g.minefield[r][c].mine {
+				print("x ")
+			} else {
+				print(g.minefield[r][c].surrounding)
+				print(" ")
+			}
+		}
+		print("\n")
+	}
+}
+
 func (g *Game) initMinefield() {
 	g.minefield = make([][]cell, g.rows)
 	for row := 0; row < g.rows; row++ {
 		g.minefield[row] = make([]cell, g.cols)
 	}
-	// set all closed
 
 	g.generateMines()
-
-	// generate surrounding size
+	g.setSurrounding()
 }
 
 func (g *Game) generateMines() {
@@ -73,7 +81,39 @@ func (g *Game) generateMines() {
 		p := ps[perm[i]]
 		g.minefield[p.r][p.c].mine = true
 	}
+}
 
-	// TODO Generate list of tuples
-	// TODO Grab an fill random tuples
+func (g *Game) setSurrounding() {
+	for _, p := range cartesian(g.rows, g.cols) {
+		if g.isMine(p) {
+			g.incSurrounding(p)
+		}
+	}
+}
+
+func (g *Game) incSurrounding(p point) {
+	for r := max(p.r-1, 0); r < min(p.r+2, g.rows); r++ {
+		for c := max(p.c-1, 0); c < min(p.c+2, g.cols); c++ {
+			if r != p.r || c != p.c {
+				g.minefield[r][c].surrounding++
+			}
+		}
+	}
+}
+
+func (g *Game) isMine(p point) bool {
+	return g.minefield[p.r][p.c].mine
+}
+func max(a, b int) int {
+	if a >= b {
+		return a
+	}
+	return b
+}
+
+func min(a, b int) int {
+	if a <= b {
+		return a
+	}
+	return b
 }
