@@ -91,11 +91,17 @@
     background-size:cover;
     background-image:url('./img/8.png');
 }
-.minecell.closed.withflag {
+.minecell.withflag {
     background-position:center center;
     background-repeat:no-repeat;
     background-size:cover;
     background-image:url('./img/flag.png');
+}
+.minecell.withfalsemine {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./img/falsemine.png');
 }
 .minecell.withmine {
     background-position:center center;

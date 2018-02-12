@@ -21,7 +21,9 @@ type Cell struct {
 func (c *Cell) setContent() {
 	if c.mine && c.Open {
 		c.Content = "explosion"
-	} else if c.mine {
+	} else if c.mine && c.Flag {
+		c.Content = "flag"
+	} else if c.mine && !c.Flag {
 		c.Content = "mine"
 	} else if !c.mine && c.Flag {
 		c.Content = "falsemine"
