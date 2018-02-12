@@ -30,7 +30,7 @@ func TestGenerateMines(t *testing.T) {
 			g := NewGame(rows, cols, mines)
 			count := 0
 			for _, p := range cartesian(g.Rows, g.Cols) {
-				if g.minefield[p.r][p.c].mine {
+				if g.Cells[p.r][p.c].mine {
 					count++
 				}
 			}
@@ -39,6 +39,7 @@ func TestGenerateMines(t *testing.T) {
 			}
 		})
 	})
+
 	t.Run("Expect correct number of surrounding mines", func(t *testing.T) {
 		testTimes(t, iterations, func(t *testing.T) {
 			rows := randInt(MinSize, MaxSize)
@@ -53,12 +54,12 @@ func TestGenerateMines(t *testing.T) {
 				count := 0
 				for r := minr; r < maxr; r++ {
 					for c := minc; c < maxc; c++ {
-						if g.minefield[r][c].mine && (c != p.c || r != p.r) {
+						if g.Cells[r][c].mine && (c != p.c || r != p.r) {
 							count++
 						}
 					}
 				}
-				if count != g.minefield[p.r][p.c].surrounding {
+				if count != g.Cells[p.r][p.c].surrounding {
 					t.Fail()
 				}
 			}
@@ -66,6 +67,7 @@ func TestGenerateMines(t *testing.T) {
 	})
 }
 
+// Make a function that can test the json object
 func testTimes(t *testing.T, times int, f func(*testing.T)) {
 	for it := 0; it < times; it++ {
 		f(t)
