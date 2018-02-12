@@ -1,3 +1,7 @@
+.topbar {
+    text-align: center;
+}
+
 .minefield {
     background: #002f4f;
     overflow: hidden;
