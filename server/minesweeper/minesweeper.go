@@ -90,9 +90,9 @@ func (g *Game) OpenCell(row, col int) bool {
 	g.unopen--
 	if cell.mine {
 		g.Status = "lost"
-		for _, row := range g.Cells {
-			for _, cell := range row {
-				cell.setContent()
+		for r, _ := range g.Cells {
+			for c, _ := range g.Cells[r] {
+				g.Cells[r][c].setContent()
 			}
 		}
 	} else if cell.surrounding == 0 {
