@@ -2,41 +2,74 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
 	"minesweeper-api-go/server/minesweeper"
 	"net/http"
 )
 
+//w.Header().Set("Access-Control-Allow-Origin", "*")
+//w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+//w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
 var game *minesweeper.Game
+
+type Field struct {
+	Row    int    `json:"row"`
+	Col    int    `json:"col"`
+	Rows   int    `json:"rows"`
+	Cols   int    `json:"cols"`
+	Mines  int    `json:"mines"`
+	Action string `json:"action"`
+}
+
+type createJson struct {
+	Rows  int `json:"rows"`
+	Cols  int `json:"cols"`
+	Mines int `json:"mines"`
+}
+
+func middle(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+		next.ServeHTTP(w, r)
+	})
+}
 
 func Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Index")
 }
 
 func CreateGame(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	game = minesweeper.NewGame(15, 25, 30)
+	var data createJson
+	var err error
+	if r.Body == nil {
+		err = errors.New("Missing body")
+	} else if err = json.NewDecoder(r.Body).Decode(&data); err != nil {
+		log.Print("heey")
+	} else if data.Cols == 0 || data.Cols > 100 {
+		err = errors.New("Missing field: cols")
+	} else if data.Rows == 0 || data.Rows > 100 {
+		err = errors.New("Missing field: rows")
+	} else if data.Mines == 0 || data.Mines >= data.Cols*data.Rows {
+		err = errors.New("Missing field: mines")
+	}
+	if err != nil {
+		log.Print(err)
+		http.Error(w, err.Error(), 400)
+		return
+	}
+	game = minesweeper.NewGame(data.Rows, data.Cols, data.Mines)
 	fmt.Fprintln(w, game.Json())
 }
 
 func GetGame(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	game = minesweeper.NewGame(15, 25, 30)
 	fmt.Fprintln(w, game.Json())
 }
 
-type Field struct {
-	Row    int    `json:"row"`
-	Col    int    `json:"col"`
-	Action string `json:"action"`
-}
-
 func UpdateGame(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	if r.Body == nil {
 		http.Error(w, "Please send a request body", 400)
 		return
@@ -60,8 +93,5 @@ func UpdateGame(w http.ResponseWriter, r *http.Request) {
 }
 
 func OptionsGame(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
 	fmt.Fprintln(w)
 }

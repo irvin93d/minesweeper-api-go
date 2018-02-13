@@ -2,7 +2,6 @@ package minesweeper
 
 import (
 	"encoding/json"
-	"log"
 	"math/rand"
 	"strconv"
 )
@@ -52,18 +51,21 @@ func NewGame(rows, cols, mines int) *Game {
 		panic("Minefield too big. Maximum is 100x100")
 	}
 	// Initialize an empty minefield
-	g := new(Game)
-	g.Rows, g.Cols = rows, cols
-	g.Mines, g.unopen = mines, rows*cols-mines
-	g.Status = "playing"
-	g.Cells = make([][]Cell, g.Rows)
-	for row := 0; row < g.Rows; row++ {
-		g.Cells[row] = make([]Cell, g.Cols)
+	cells := make([][]Cell, rows)
+	for row := 0; row < rows; row++ {
+		cells[row] = make([]Cell, cols)
+	}
+	g := Game{
+		Rows:   rows,
+		Cols:   cols,
+		Mines:  mines,
+		unopen: rows*cols - mines,
+		Status: "playing",
+		Cells:  cells,
 	}
 	// Generate mines randomly
 	g.generateMines()
-
-	return g
+	return &g
 }
 
 func (g *Game) generateMines() {
@@ -118,12 +120,10 @@ func (g *Game) FlagCell(row, col int) bool {
 }
 
 func (g *Game) UnflagCell(row, col int) bool {
-	log.Print("unFLagging")
 	cell := &g.Cells[row][col]
 	if !cell.Flag || cell.Open || g.Status != "playing" {
 		return false
 	}
-	log.Print("FLaged")
 	cell.Flag = false
 	return true
 }

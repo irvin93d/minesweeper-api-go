@@ -79,9 +79,9 @@ class SideBar extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const rows = document.getElementById('rows').value;
-    const cols = document.getElementById('cols').value;
-    const mines = document.getElementById('mines').value;
+    const rows = parseInt(document.getElementById('rows').value, 10);
+    const cols = parseInt(document.getElementById('cols').value, 10);
+    const mines = parseInt(document.getElementById('mines').value, 10);
     this.props.newGame(rows, cols, mines);
   }
 
@@ -129,7 +129,6 @@ class MainFrame extends React.Component {
         col: col,
         action: action,
       })
-      
     })
     .then(res => res.json())
     .then(
@@ -147,8 +146,18 @@ class MainFrame extends React.Component {
 
   newGame(rows, cols, mines) {
     console.log('New game');
+    console.log(rows, cols, mines);
     fetch('http://127.0.0.1:8080/api/minesweeper',{
-        method: 'POST'
+        method: 'POST',
+        header: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          rows: rows,
+          cols: cols,
+          mines: mines,
+        })
       })
       .then(res => res.json())
       .then(
