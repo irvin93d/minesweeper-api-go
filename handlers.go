@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"minesweeper-api-go/server/minesweeper"
+	"minesweeper-api-go/minesweeper"
 	"net/http"
 )
 

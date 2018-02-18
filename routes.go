@@ -14,12 +14,12 @@ type Route struct {
 type Routes []Route
 
 var routes = Routes{
-	Route{
+	/*Route{
 		"Index",
 		"GET",
 		"/",
 		Index,
-	},
+	},*/
 	Route{
 		"NewGame",
 		"POST",

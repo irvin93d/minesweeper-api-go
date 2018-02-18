@@ -93,15 +93,15 @@ class SideBar extends React.Component {
           <Button color='primary'>New Game</Button>
           <FormGroup>
             <Label for="rows">Rows</Label>
-            <Input type="number" name="rows" id="rows" placeholder="Rows" />
+            <Input type="number" name="rows" defaultValue='15' id="rows" placeholder="Rows" />
           </FormGroup>
           <FormGroup>
             <Label for="cols">Columns</Label>
-            <Input type="number" name="cols" id="cols" placeholder="Columns" />
+            <Input type="number" name="cols" id="cols" defaultValue='20' placeholder="Columns" />
           </FormGroup>
           <FormGroup>
             <Label for="mines">Mines</Label>
-            <Input type="number" name="mines" id="mines" placeholder="Mines" />
+            <Input type="number" name="mines" id="mines" defaultValue='40' placeholder="Mines" />
           </FormGroup>
         </Form>
       </Navbar>

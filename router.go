@@ -22,5 +22,6 @@ func NewRouter() *mux.Router {
 			Handler(middle(handler))
 	}
 
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./build/")))
 	return router
 }
