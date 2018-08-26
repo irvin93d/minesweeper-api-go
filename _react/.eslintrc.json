@@ -14,7 +14,10 @@
     },
     "parserOptions": {
         "ecmaVersion": 2016,
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
     },
     "rules": {
         "indent": [
@@ -28,6 +31,10 @@
         "quotes": [
             "error",
             "single"
+        ],
+        "max-len": [
+            "error",
+            {"code": 80}
         ],
         "semi": [
             "error",
