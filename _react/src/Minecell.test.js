@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ConnectedMinecell } from './Minecell'
+import ConnectedMinecell from './Minecell'
 import { createMockStore } from 'redux-test-utils'
 import { shallowWithStore } from 'enzyme-redux'
 import { openCell } from './actions'

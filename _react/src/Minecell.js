@@ -45,7 +45,8 @@ function mapStateToProps(state, ownProps) {
   return { ...getMinefieldMineCell( state, ownProps.cell) }
 } 
 
-export const ConnectedMinecell = connect(
+const ConnectedMinecell = connect(
   mapStateToProps, mapDispatchToProps
 )(Minecell)
 
+export default ConnectedMinecell
