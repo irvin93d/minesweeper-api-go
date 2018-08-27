@@ -18,7 +18,6 @@ class Minecell extends React.Component {
     })
     return (
       <div className={classes}>
-        Mine
       </div>
     )
   }
