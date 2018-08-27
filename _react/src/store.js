@@ -1,15 +1,9 @@
 import { createStore } from 'redux'
 import rootReducer from './reducers'
+import { mockMinefield } from './mock_minefield.js'
 
-const mockstate = {
-  minefield: {
-    mines: [[]],
-    rows: 5,
-    cols: 8
-  }
-}
 const Store = createStore(
-  rootReducer, mockstate 
+  rootReducer, {minefield: mockMinefield} 
   //, window.__REDUX_DEVTOOLS_EXTENSION__ 
   // && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
