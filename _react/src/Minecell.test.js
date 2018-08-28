@@ -10,7 +10,7 @@ describe('Minecell component', () => {
     {
       description: 'renders without exploding',
       mine: { isOpen: false },
-      classes: [],
+      classes: ['Minecell'],
       notClasses: []
     },
     {
