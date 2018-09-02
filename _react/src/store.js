@@ -1,6 +1,6 @@
 import { createStore } from 'redux'
 import rootReducer from './reducers'
-import { mockMinefield } from './mock_minefield.js'
+import { mockMinefield } from './minefield.mock.js'
 
 const Store = createStore(
   rootReducer, {minefield: mockMinefield} 

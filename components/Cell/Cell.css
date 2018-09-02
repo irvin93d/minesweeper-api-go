@@ -1,0 +1,121 @@
+.cell {
+    overflow: hidden;
+    height: 0;
+    padding-bottom: 100%;
+    width: 100%;
+    position: relative;
+    border-radius: 2.5%;
+}
+
+/* Set Correct background color */
+.open {
+    background: #bfe5ff;
+    background-image: -webkit-linear-gradient(top, #bfe5ff, #9ac0d6);
+    background-image: -moz-linear-gradient(top, #bfe5ff, #9ac0d6);
+    background-image: -ms-linear-gradient(top, #bfe5ff, #9ac0d6);
+    background-image: -o-linear-gradient(top, #bfe5ff, #9ac0d6);
+    background-image: linear-gradient(to bottom, #bfe5ff, #9ac0d6);
+}
+
+.closed, .flagged {
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+}
+
+.closed:hover, .flagged:hover {
+    background: #61c2ff;
+    background-image: -webkit-linear-gradient(top, #61c2ff, #4ca2db);
+    background-image: -moz-linear-gradient(top, #61c2ff, #4ca2db);
+    background-image: -ms-linear-gradient(top, #61c2ff, #4ca2db);
+    background-image: -o-linear-gradient(top, #61c2ff, #4ca2db);
+    background-image: linear-gradient(to bottom, #61c2ff, #4ca2db);
+}
+
+
+.closed.mine, .closed.mine:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/mine.png');
+}
+
+.flagged, .flagged:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/falseflag.png');
+}
+
+.flagged.unknown, .flagged.mine, .flagged.unknown:hover, .flagged.mine:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/flag.png');
+}
+
+.open.mine, .open.mine:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/explosion.png');
+}
+
+.open.surrounding1, .open.surrounding1:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/1.png');
+}
+
+.open.surrounding2, .open.surrounding2:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/2.png');
+}
+
+.open.surrounding3, .open.surrounding3:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/3.png');
+}
+
+.open.surrounding4, .open.surrounding4:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/4.png');
+}
+
+.open.surrounding5, .open.surrounding5:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/5.png');
+}
+
+.open.surrounding6, .open.surrounding6:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/6.png');
+}
+
+.open.surrounding7, .open.surrounding7:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/7.png');
+}
+
+.open.surrounding8, .open.surrounding8:hover {
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image:url('./imgs/8.png');
+}

@@ -1,28 +1,33 @@
 import React from 'react'
-import Minefield from './Minefield'
-import Enzyme, { shallow, mount } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
 
-Enzyme.configure({ adapter: new Adapter() })
+import ConnectedMinefield from './Minefield'
+import { createMockStore } from 'redux-test-utils'
+import { shallowWithStore, mountWithStore } from 'enzyme-redux'
+import { mockMinefield } from './minefield.mock'
 
-function setup(props = {}) {
-  const enzymeWrapper = mount(<Minefield {...props} />)
-
-  return {
-    props,
-    enzymeWrapper
-  }
-}
-
-const shallowWrapper = shallow(<Minefield />)
+const mockStore = createMockStore({minefield: mockMinefield})
 
 describe('Minefield component', () => {
 
   it('renders without exploding', () => {
-    expect(shallowWrapper).toHaveLength(1)
+    const component = shallowWithStore(
+      <ConnectedMinefield />, mockStore
+    )
+    const div = component.dive().find('div')
+    expect(div).toHaveLength(1)
+    expect(div.hasClass('Minefield')).toBe(true)
   })
 
-  it('renders Minefield class', () => {
-    expect(shallowWrapper.find('div').hasClass('Minefield')).toBe(true)
+  it('renders right number of mines', () => {
+    const component = mountWithStore(
+      <ConnectedMinefield />, mockStore
+    )
+    /*
+    const div = component.dive().find('div')
+    expect(div).toHaveLength(1)
+    expect(div.hasClass('Minefield')).toBe(true)
+    //expect(mountWrapper.find('.Minecell')).toHaveLength(80)
+    */
   })
+
 })
