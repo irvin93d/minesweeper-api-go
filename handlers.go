@@ -1,12 +1,13 @@
-package main
+package gosweeper
 
 import (
 	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
-	"minesweeper-api-go/minesweeper"
 	"net/http"
+
+	"github.com/irvin93d/gosweeper/minesweeper"
 )
 
 //w.Header().Set("Access-Control-Allow-Origin", "*")
